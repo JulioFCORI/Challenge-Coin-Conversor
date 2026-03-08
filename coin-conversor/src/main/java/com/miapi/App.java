@@ -4,11 +4,25 @@ import java.util.Currency;
 import java.util.Scanner;
 
 public class App {
+    public static void converter(String fcoinBase, String scoinBase ){
+        Scanner scanner = new Scanner(System.in);
+        double numberConvert = 0;
+        System.out.println("Please enter the quantity that you want to convert into " + scoinBase);
+        numberConvert = scanner.nextDouble();
+        CurrencyConsult consultor = new CurrencyConsult();
+        Double rate = consultor.lookupRate(fcoinBase).conversion_rates().get(scoinBase);
+
+        double result = numberConvert*rate;
+        System.out.println("The converter value from "+ fcoinBase + " to " + scoinBase + " of " + numberConvert + " is " + result);
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int option = -1;
         CurrencyConsult consultor = new CurrencyConsult();
-        consultor.lookupRate("USD");
+        CurrencyData answer = consultor.lookupRate("USD");
+        answer.conversion_rates().forEach((moneda, valor) -> {
+            System.out.println(moneda + " " + valor);
+        });
         while (option != 0) {
             System.out.println(
                     """
@@ -29,42 +43,49 @@ public class App {
             option = scanner.nextInt();
             switch (option) {
                 case 1:
+                    converter("USD","ARS");
 
-                    System.out.println("Hello I am option number" + option);
+                    //System.out.println("Hello I am option number" + option);
                     break;
 
                 case 2:
-                    System.out.println("Hello I am option number" + option);
-
+                    converter("ARS","USD");
+                    //System.out.println("Hello I am option number" + option);
                     break;
 
                 case 3:
-                    System.out.println("Hello I am option number" + option);
+                    converter("USD","BRL");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 
                 case 4:
-                    System.out.println("Hello I am option number" + option);
+                    converter("BRL","USD");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 
                 case 5:
-                    System.out.println("Hello I am option number" + option);
+                    converter("USD","COP");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 
                 case 6:
-                    System.out.println("Hello I am option number" + option);
+                    converter("COP","USD");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 
                 case 7:
-                    System.out.println("Hello I am option number" + option);
+                    converter("USD","MXN");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 
                 case 8:
-                    System.out.println("Hello I am option number" + option);
+                    converter("MXN","USD");
+                    //System.out.println("Hello I am option number" + option);
 
                     break;
 

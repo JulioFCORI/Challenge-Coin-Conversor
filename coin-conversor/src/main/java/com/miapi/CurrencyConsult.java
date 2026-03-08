@@ -7,14 +7,14 @@ import java.net.http.HttpResponse;
 import com.google.gson.Gson;
 
 public class CurrencyConsult {
-    private String apiKey = "9650a7d5d34532968bf19b94";
+    private final HttpClient client = HttpClient.newHttpClient();
+    private final String apiKey = "9650a7d5d34532968bf19b94";
 
     public CurrencyData lookupRate(String coinBase) {
 
         String direction = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/" + coinBase;
         // Create Client and Request
         try {
-            HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(direction))
                     .build();
@@ -24,7 +24,7 @@ public class CurrencyConsult {
             // Gson
             return new Gson().fromJson(response.body(), CurrencyData.class);
         } catch (Exception e) {
-            throw new RuntimeException("I couldn´t find that coin: "+ e.getMessage());
+            throw new RuntimeException("I couldn't find that coin: "+ e.getMessage());
         }
     }
 }
